@@ -1,35 +1,35 @@
 services:
   app:
-    image: php:8.3-apache # Utiliza imagem oficial do PHP com Apache
-    container_name: crud-php-app # Nome do container da aplicação
+    image: php:8.3-apache
+    container_name: crud-php-app 
     ports:
-      - "8080:80" # Libera acesso pelo navegador na porta 8080
+      - "8080:80"
     volumes:
-      - ./app:/var/www/html # Monta o código PHP dentro do container
-    environment: # Variáveis usadas para conexão com banco
-      DB_HOST: db # Nome do serviço do banco na rede Docker
-      DB_USER: root # Usuário do banco
-      DB_PASSWORD: root # Senha do banco
-      DB_NAME: crud_produtos # Nome do banco
+      - ./app:/var/www/html 
+    environment: 
+      DB_HOST: db 
+      DB_USER: root 
+      DB_PASSWORD: root 
+      DB_NAME: crud_produtos 
     depends_on:
-      - db # Aguarda o serviço do banco existir
+      - db 
     networks:
-      - minha-rede # Conecta na rede personalizada
+      - minha-rede
 
   db:
-    image: mysql:8.0 # Imagem oficial do MySQL
-    container_name: crud-mysql-db # Nome do container do banco
+    image: mysql:8.0
+    container_name: crud-mysql-db
     environment:
-      MYSQL_ROOT_PASSWORD: root # Senha do usuário root
-      MYSQL_DATABASE: crud_produtos # Banco criado automaticamente
+      MYSQL_ROOT_PASSWORD: root 
+      MYSQL_DATABASE: crud_produtos
     volumes:
-      - mysql-data:/var/lib/mysql # Mantém os dados persistentes
+      - mysql-data:/var/lib/mysql 
     networks:
-      - minha-rede # Conecta na rede personalizada
+      - minha-rede
 
 volumes:
-  mysql-data: # Volume permanente do banco
+  mysql-data:
 
 networks:
   minha-rede:
-    driver: bridge # Rede isolada para comunicação dos containers
+    driver: bridge 
